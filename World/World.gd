@@ -39,13 +39,12 @@ func _on_ship_clicked(event: InputEvent, ship: Ship):
 func _input(event: InputEvent):
 	if event is InputEventMouseMotion and selected_ship != null:
 		#selected_ship.position = ((event.position - selected_ship_original_position) \
-		#	.clamped($Grid.cellSize * selected_ship.speed) + selected_ship_original_position - cell_size/2).snapped(cell_size) +  cell_size/2
+		#	.clamped($Grid.cell_size * selected_ship.speed) + selected_ship_original_position - cell_size/2).snapped(cell_size) +  cell_size/2
 			
-		selected_ship.position = floor_to_cells(event.position, selected_ship.speed, $Grid.cellSize)
+		selected_ship.position = floor_to_cells(event.position, selected_ship.speed, $Grid.cell_size)
 
 func floor_to_cells(position: Vector2, speed: float, cell_size: float) -> Vector2:
 	var cell: Vector2 = Vector2(cell_size, cell_size)
-	var half_size: Vector2 = cell / 2
 	var direction: Vector2 = (position - selected_ship_original_position).normalized()
 	var search_position = (position - selected_ship_original_position).clamped(speed * cell_size)
 	var snapped_position = search_position.snapped(cell) + selected_ship_original_position
@@ -61,7 +60,7 @@ func snap_floor(position: Vector2, step: float) -> Vector2:
 
 func show_speed(show: bool):
 	if show:
-		selected_ship_velocity_node = create_range(selected_ship.speed, $Grid.cellSize)
+		selected_ship_velocity_node = create_range(selected_ship.speed, $Grid.cell_size)
 		add_child(selected_ship_velocity_node)
 	else:
 		selected_ship_velocity_node.queue_free()
