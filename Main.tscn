@@ -6,6 +6,5 @@
 [node name="Main" type="Node"]
 
 [node name="Gui" parent="." instance=ExtResource( 2 )]
-mouse_filter = 1
 
 [node name="World" parent="." instance=ExtResource( 1 )]
