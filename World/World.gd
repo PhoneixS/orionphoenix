@@ -2,15 +2,19 @@ extends Node2D
 
 const GROUP_SHIPS = "ships"
 
-# Declare member variables here. Examples:
-var current_player = 1
+# Declare member variables here.
+var players := [Player.new(0, "Player 1"), Player.new(1, "Player 2")]
+var current_player: Player = players.front()
 var selected_ship: Ship
 var selected_ship_original_position: Vector2
 var selected_ship_velocity_node: Polygon2D
+onready var gui = get_parent().get_node("CombatGui")
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	gui.connect("next_turn", self, "_on_next_turn")
 	
 	for ship in get_tree().get_nodes_in_group(GROUP_SHIPS):
 		ship.connect("ship_event", self, "_on_ship_clicked")
@@ -20,8 +24,17 @@ func _ready():
 #func _process(delta):
 #	pass
 
+func _on_next_turn():
+	if current_player == players.back():
+		current_player = players.front()
+	else:
+		current_player = players[current_player.id + 1]
+	
+	gui.current_player = current_player
+	print("Turn changed to ", current_player.name)
+
 func _on_ship_clicked(event: InputEvent, ship: Ship):
-	if ship.player == current_player:
+	if ship.player == current_player.id:
 		if event is InputEventMouseButton and event.is_pressed():
 			if event.button_index == BUTTON_LEFT:
 				if selected_ship != ship:
@@ -33,7 +46,7 @@ func _on_ship_clicked(event: InputEvent, ship: Ship):
 					selected_ship = null
 		
 	else:
-		print("¡Enemy ship " + ship.name + "!")
+		print("¡Enemy ", players[ship.player].name, " ship ", ship.name, "!")
 		
 
 func _input(event: InputEvent):

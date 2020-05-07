@@ -1,10 +1,11 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://World/World.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Gui/Gui.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Gui/CombatGui.tscn" type="PackedScene" id=2]
 
 [node name="Main" type="Node"]
 
-[node name="Gui" parent="." instance=ExtResource( 2 )]
+[node name="CombatGui" parent="." instance=ExtResource( 2 )]
 
 [node name="World" parent="." instance=ExtResource( 1 )]
+position = Vector2( -1, 0 )

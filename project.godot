@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://git_api.gdns"
 }, {
+"base": "Object",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Common/Player.gd"
+}, {
 "base": "Node2D",
 "class": "Ship",
 "language": "GDScript",
@@ -21,6 +26,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "GitAPI": "",
+"Player": "",
 "Ship": ""
 }
 
